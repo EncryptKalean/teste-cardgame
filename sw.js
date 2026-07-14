@@ -12,9 +12,9 @@ const STATIC_ASSETS = [
   "./assets/js/menu.js",
   "./manifest.json",
   // IMGs essenciais"
-  "./assets\img\APP-192.png",
-  "./assets\img\APP-500.png",
-  "./assets\img\logo.webp",
+  "./assets/img/APP-192.png",
+  "./assets/img/APP-500.png",
+  "./assets/img/logo.webp",
 ];
 
 // INSTALL → garante offline base
