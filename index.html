@@ -4,11 +4,6 @@
             .register("./sw.js")
             .then((reg) => {
               console.log("SW Registrado com sucesso!");
-
-              // Força a verificação de nova versão a cada 30 segundos
-              setInterval(() => {
-                reg.update();
-              }, 30000);
             })
             .catch((err) => console.error("Erro no SW:", err));
         });
