@@ -1,10 +1,11 @@
 {
-  "name": "GDA Card game",
-  "short_name": "GDA Card game",
-  "start_url": "./",
+  "name": "GDA Card Game",
+  "short_name": "GDA",
+  "start_url": "./index.html",
   "scope": "./",
   "description": "Um jogo oficial GDA",
-  "display": "standalone",
+  "display": "fullscreen",
+  "orientation": "landscape",
   "background_color": "#1e0f07",
   "theme_color": "#fdc938",
   "icons": [
