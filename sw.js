@@ -1,4 +1,4 @@
-const CACHE_NAME = "GDA-CardGame-V0.0.4";
+const CACHE_NAME = "GDA-CardGame-V0.0.5";
 
 // arquivos essenciais (app shell)
 const STATIC_ASSETS = [
@@ -36,6 +36,7 @@ self.addEventListener("activate", (event) => {
 });
 
 // FETCH (inteligente)
+// FETCH (Stale-While-Revalidate para arquivos locais)
 self.addEventListener("fetch", (event) => {
   const url = new URL(event.request.url);
 
@@ -44,17 +45,23 @@ self.addEventListener("fetch", (event) => {
   if (url.origin !== self.location.origin) return;
 
   event.respondWith(
-    caches.match(event.request).then(cachedResponse => {
-      // Se achou no cache, retorna ele. Se não, vai na rede.
-      return cachedResponse || fetch(event.request).then(networkResponse => {
+    caches.match(event.request).then((cachedResponse) => {
+      // Faz a busca na rede em segundo plano
+      const fetchPromise = fetch(event.request).then((networkResponse) => {
         if (networkResponse && networkResponse.status === 200) {
           const responseToCache = networkResponse.clone();
-          caches.open(CACHE_NAME).then(cache => {
+          caches.open(CACHE_NAME).then((cache) => {
             cache.put(event.request, responseToCache);
           });
         }
         return networkResponse;
+      }).catch(() => {
+        // Se a rede falhar de vez (offline), o navegador usa o cache silenciosamente
       });
+
+      // Retorna o cache IMEDIATAMENTE (super rápido). 
+      // Se não tiver cache, entrega a resposta da rede.
+      return cachedResponse || fetchPromise;
     })
   );
 });
