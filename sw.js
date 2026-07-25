@@ -1,4 +1,4 @@
-const CACHE_NAME = "V0.1.2-GDA-CardGame";
+const CACHE_NAME = "V0.1.3-GDA-CardGame";
 
 // arquivos essenciais (app shell)
 const STATIC_ASSETS = [
@@ -37,8 +37,6 @@ self.addEventListener("activate", (event) => {
   );
 });
 
-// FETCH (inteligente)
-// FETCH (Stale-While-Revalidate para arquivos locais)
 self.addEventListener("fetch", (event) => {
   const url = new URL(event.request.url);
 
@@ -46,9 +44,19 @@ self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
   if (url.origin !== self.location.origin) return;
 
+  // 1. NETWORK FIRST para o HTML (Garante que a estrutura base sempre tente buscar a versão mais recente)
+  if (event.request.mode === 'navigate') {
+    event.respondWith(
+      fetch(event.request).catch(() => {
+        return caches.match(event.request); // Se estiver offline, usa o cache
+      })
+    );
+    return; // Interrompe para não cair no bloco SWR abaixo
+  }
+
+  // 2. STALE-WHILE-REVALIDATE para arquivos estáticos (CSS, JS, IMG)
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
-      // Faz a busca na rede em segundo plano
       const fetchPromise = fetch(event.request).then((networkResponse) => {
         if (networkResponse && networkResponse.status === 200) {
           const responseToCache = networkResponse.clone();
@@ -58,11 +66,9 @@ self.addEventListener("fetch", (event) => {
         }
         return networkResponse;
       }).catch(() => {
-        // Se a rede falhar de vez (offline), o navegador usa o cache silenciosamente
+        // Ignora falhas silenciosas de rede
       });
 
-      // Retorna o cache IMEDIATAMENTE (super rápido). 
-      // Se não tiver cache, entrega a resposta da rede.
       return cachedResponse || fetchPromise;
     })
   );
