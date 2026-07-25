@@ -14,7 +14,9 @@ const STATIC_ASSETS = [
   // IMGs essenciais"
   "assets/img/APP-192.png",
   "assets/img/APP-500.png",
-  "assets/img/logo.webp",
+  "assets/img/menu/logo.webp",
+  "assets/img/menu/jogar.webp",
+  "assets/img/menu/tutorial.webp",
 ];
 
 // INSTALL → garante offline base
