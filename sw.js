@@ -1,4 +1,4 @@
-const CACHE_NAME = "V0.1.3-GDA-CardGame";
+const CACHE_NAME = "V0.1.3.5-GDA-CardGame";
 
 // arquivos essenciais (app shell)
 const STATIC_ASSETS = [
