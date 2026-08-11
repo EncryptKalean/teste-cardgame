@@ -1,4 +1,4 @@
-const CACHE_NAME = "V1.5.1 GDA Arena dos Gados";
+const CACHE_NAME = "V1.5.2 GDA Arena dos Gados";
 
 // arquivos essenciais (app shell)
 const STATIC_ASSETS = [
@@ -8,6 +8,7 @@ const STATIC_ASSETS = [
   "assets/css/main.css",
   "assets/css/menu.css",
   "assets/css/tutorial.css",
+  "assets/css/galeria.css",
   "assets/js/main.js",
   "assets/js/menu.js",
   "manifest.json",
