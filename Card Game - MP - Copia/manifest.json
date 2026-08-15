@@ -1,0 +1,23 @@
+{
+  "name": "GDA Arena dos Gados",
+  "short_name": "GDA",
+  "start_url": "./index.html",
+  "scope": "./",
+  "description": "Um jogo oficial GDA",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "background_color": "#1e0f07",
+  "theme_color": "#fdc938",
+  "icons": [
+    {
+      "src": "assets/img/APP-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/img/APP-500.png",
+      "sizes": "500x500",
+      "type": "image/png"
+    }
+  ]
+}
